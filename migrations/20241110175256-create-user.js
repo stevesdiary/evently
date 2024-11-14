@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       first_name: {
         type: Sequelize.STRING
@@ -16,18 +16,30 @@ module.exports = {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        uniqe: true
       },
       password: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      phone_number: {
+        type: Sequelize.STRING
       },
-      updatedAt: {
+      type: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.DATE
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
+        field: "created_at",
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
+        field: "updated_at"
       }
     });
   },
