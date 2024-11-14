@@ -1,8 +1,7 @@
 const Joi = require('joi')
 const phoneRegex = /^(?:\+?234|0)\d{10}$/
 
-const validator = {
-	Event: Joi.object({
+const createEventSchema = Joi.object({
 		event_name: Joi.string().min(3).required(),
 		location: Joi.string().required(),
 		venue: Joi.string().required(),
@@ -16,9 +15,9 @@ const validator = {
 		start_time: Joi.string().required(),
 		end_time: Joi.string().required(),
 		quantity: Joi.number().optional(),
-	}),
+});
 
-	User: Joi.object({
+const createUserSchema = Joi.object({
 		first_name: Joi.string().min(3).required(),
 		last_name: Joi.string().min(3),
 		email: Joi.string().email().required(),
@@ -28,7 +27,7 @@ const validator = {
 		gender: Joi.string().valid('male', 'female').required(),
 		type: Joi.string().optional(),
 
-	})	
-}
+})	
 
-module.exports = validator;
+
+module.exports = { createEventSchema, createUserSchema};
