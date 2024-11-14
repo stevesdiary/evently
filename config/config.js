@@ -1,12 +1,18 @@
-require('dotenv').config()
-const dbConfig = require("./config");
-{
+require('dotenv').config();
+module.exports = {
   "development": {
     "username": process.env.DB_USER,
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_NAME,
     "host": process.env.DB_HOST,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "certificate": process.env.CERTIFICATE,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // for self-signed certificates
+      },
+    },
   },
   "test": {
     "username": "root",
@@ -22,4 +28,4 @@ const dbConfig = require("./config");
     "host": process.env.DB_HOST,
     "dialect": "postgres"
   }
-}
+};
