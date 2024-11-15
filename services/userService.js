@@ -9,7 +9,7 @@ const userService = {
 					throw new Error(error.details[0].message);
 			}
 			const createUser = await User.create(payload);
-			// console.log("RESULT", createUser);
+			console.log("RESULT", createUser);
 			return createUser;
 		} catch (error) {
 			return error;
