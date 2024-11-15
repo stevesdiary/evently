@@ -29,5 +29,10 @@ const createUserSchema = Joi.object({
 
 })	
 
+const validate = (schema) => (payload) => {
+	const { error } = schema.validate(payload);
+	return error;
+};
 
-module.exports = { createEventSchema, createUserSchema};
+
+module.exports = { createEventSchema, createUserSchema, validate };
