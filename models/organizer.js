@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.UUID,
 			primaryKey: true,
 			allowNull: false,
-			defaultValue: Sequelize.UUID
+			defaultValue: DataTypes.UUIDV4
 		},
     first_name: {
 			type: DataTypes.STRING,
@@ -52,6 +52,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Organizers',
     paranoid: false,
     underscored: true,
+    updatedAt: 'updated_at',
+    createdAt: 'created_at',
   });
   return Organizer;
 };
