@@ -24,7 +24,14 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		location: {
+		city: {
+			type: DataTypes.STRING,
+		},
+		state: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		country: {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
@@ -73,12 +80,22 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.DATE,
 			allowNull: false
 		},
-		
+		theme: {
+			type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+		},
+		extra_info: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		}
   }, {
     sequelize,
     modelName: 'Event',
 		tableName: 'Events',
+		paranoid: false,
 		underscored: true,
+		updatedAt: 'updated_at',
+    createdAt: 'created_at',
   });
   return Event;
 };
