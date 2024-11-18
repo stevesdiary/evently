@@ -29,10 +29,30 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-    date: {
+    start_date: {
 			type: DataTypes.DATE,
 			allowNull: false,
 		},
+    end_date: {
+      type: DataTypes.DATE,
+    },
+    start_time: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    end_time: {
+      type: DataTypes.DATE,
+    },
+    price: {
+      type: DataTypes.NUMBER,
+    },
+    venue: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    payment_status: {
+      type: DataTypes.STRING,
+    },
     status: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,6 +64,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'RSVPs',
     paranoid: false,
     underscored: true,
+    updatedAt: 'updated_at',
+    createdAt: 'created_at',
   });
   return Rsvp;
 };
