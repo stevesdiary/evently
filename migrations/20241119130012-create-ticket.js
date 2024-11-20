@@ -2,46 +2,42 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Tickets', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      first_name: {
+      event_id: {
         type: Sequelize.STRING
       },
-      last_name: {
+      user_id: {
         type: Sequelize.STRING
       },
-      email: {
-        type: Sequelize.STRING,
-        uniqe: true
+      price: {
+        type: Sequelize.DECIMAL(11, 2),
       },
-      password: {
+      status: {
         type: Sequelize.STRING
       },
-      phone_number: {
+      qr_code_url: {
         type: Sequelize.STRING
       },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      purchase_date: {
+        type: Sequelize.DATE
       },
       createdAt: {
-        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        type: Sequelize.DATE
       },
       updatedAt: {
-        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Tickets');
   }
 };
