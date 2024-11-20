@@ -4,8 +4,12 @@ const userController = require('../controllers/userController');
 const userService = {
 	createUser: async(payload) => {
 		try {
+			const userExists = await User.findOne({ where: { email: payload.email }});
+			if (userExists) {
+				return { status: 400, message: `User ${payload.email} already exists, login with this email and password` };
+			}
 			const createUser = await User.create(payload);
-			return createUser;
+			return { status: 201, message: "User record created!", data: createUser };
 		} catch (error) {
 			console.log("Service error", error);
 			throw error;
@@ -30,13 +34,16 @@ const userService = {
 	getOne: async(payload) => {
 		try {
 			const id = payload;
-			const user = await User.findOne({
+			const userRecord = await User.findOne({
 				where: { id: payload },
 				attributes: {
 					exclude: ["createdAt", "updatedAt", "password"]
 				}
 			});
-			return user;
+			if (!userRecord) {
+				return { status: 404, message: 'User record not found' };
+			}
+			return { status:200, message: 'Record found!', data: userRecord };
 		} catch (error) {
 			throw error;
 		}
@@ -45,10 +52,18 @@ const userService = {
 	deleteOne: async(payload) => {
 		try {
 			const id = payload;
-			const user = await User.destroy({
+			const deleteUser = await User.destroy({
 				where: { id: payload }
 			});
-			return user;
+			if (deleteUser < 1) {
+				console.log("User not found");
+				return { status: 404, message: "User record was not found or already deleted" };
+			}
+
+			console.log("User deleted", deleteUser);
+			return { status: 200, message: "Record deleted", data: deleteUser };
+		
+			return deleteUser;
 		} catch (error) {
 			throw error;
 		}
