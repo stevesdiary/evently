@@ -20,9 +20,16 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true,
 			defaultValue: DataTypes.UUIDV4
 		},
-    event_name: {
+		organizer_id: {
 			type: DataTypes.STRING,
 			allowNull: false,
+		},
+    title: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		description: {
+			type: DataTypes.STRING,
 		},
 		city: {
 			type: DataTypes.STRING,
@@ -43,9 +50,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-    description: {
-			type: DataTypes.STRING,
-		},
 		type: {
 			type: DataTypes.STRING,
 		},
@@ -58,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 		},
 		price: {
-			type: DataTypes.NUMBER,
+			type: DataTypes.DECIMAL(11, 2),
 			allowNull: false,
 			defaultValue: 0
 		},
@@ -66,10 +70,10 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.DECIMAL(11, 2),
 		},
 		discounted_price: {
-			type: DataTypes.NUMBER,
+			type: DataTypes.DECIMAL(11, 2),
 		},
 		quantity: {
-			type: DataTypes.NUMBER,
+			type: DataTypes.INTEGER,
 			allowNull: true,
 		},
 		start_time: {
@@ -93,9 +97,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Event',
 		tableName: 'Events',
 		paranoid: false,
-		underscored: true,
-		updatedAt: 'updated_at',
-    createdAt: 'created_at',
   });
   return Event;
 };
