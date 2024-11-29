@@ -52,9 +52,6 @@ module.exports = (sequelize, DataTypes) => {
 		tableName: 'Users',
 		paranoid: false,
 		timestamps: true,
-		underscored: true,
-		updatedAt: 'updated_at',
-    createdAt: 'created_at',
   });
   return User;
 };
