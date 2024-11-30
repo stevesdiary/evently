@@ -51,9 +51,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Organizer',
     tableName: 'Organizers',
     paranoid: false,
-    underscored: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at',
   });
   return Organizer;
 };
