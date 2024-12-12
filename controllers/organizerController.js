@@ -1,25 +1,32 @@
 const { Event, Organizer, Organier } = require('../models');
 const { Op } = require('sequelize');
 const { organizerService } = require('../services/organizerService');
+const bcrypt = require("bcrypt");
+const salt = 10;
 
 const organizerController = {
 	createOrganizer: async (req, res, next) => {
 		try {
-			const { first_name, last_name, email, password, phone_number, type } = req.body;
-			const payload = { first_name, last_name, email, password, phone_number, type };
+			const { first_name, last_name, email, password, confirm_password, phone_number, type } = req.body;
+			if (password !== confirm_password) {
+				return res.status(400).json({ message: "Passwords do not match" });
+			}
+			const hashed = await bcrypt.hash(password, salt);
+			const payload = { first_name, last_name, email, password: hashed, phone_number, type };
 			const createOrganizer = await organizerService.createOrganizer(payload);
 
 			if (!createOrganizer) {
 				return res.status(403).send({ message: 'Organizer not created' });
 			}
 			if (createOrganizer.email !== null) {
-				return res.status(201).json({
-					message: 'Organizer created successfully',
-					data: createOrganizer
+				return res.status(createOrganizer.status).json({
+					message: createOrganizer.message,
+					data: createOrganizer.data,
 				});
 			}
 			
 		} catch (error) {
+			console.log("error", error);
 			return res.status(500).json({
 				message: 'An error occurred while creating the organizer',
 				error: error
@@ -38,7 +45,10 @@ const organizerController = {
 				
 			}
 		} catch (error) {
-			
+			return res.status(500).json({
+				message: 'An error occurred while updating the organizer',
+				error: error
+			});
 		}
 	},
 
