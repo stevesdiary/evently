@@ -4,12 +4,16 @@ const userController = require('../controllers/userController');
 const userService = {
 	createUser: async(payload) => {
 		try {
-			const userExists = await User.findOne({ where: { email: payload.email }});
+			const userExists = await User.findOne({
+				where: {
+					email: payload.email,
+				}});
 			if (userExists) {
 				return { status: 400, message: `User ${payload.email} already exists, login with this email and password` };
 			}
 			const createUser = await User.create(payload);
-			return { status: 201, message: "User record created!", data: createUser };
+			const { password: _, ...userData } = createUser.dataValues;
+			return { status: 201, message: "User record created!", data: userData };
 		} catch (error) {
 			console.log("Service error", error);
 			throw error;
