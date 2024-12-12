@@ -13,7 +13,7 @@ async function connectNeonDatabase() {
     const data = await client.query(
       `SELECT count(*) as num_tables FROM information_schema.tables WHERE table_schema='public'`
     );
-    console.log("Tables", data.rows[0].num_tables);
+    // console.log("Tables", data.rows[0].num_tables);
   } catch (error) {
     console.error("Error connecting to the database:", error);
     return new Response("Database connection error", { status: 500 });
