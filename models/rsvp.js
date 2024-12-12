@@ -63,9 +63,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'RSVP',
     tableName: 'RSVPs',
     paranoid: false,
-    underscored: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at',
   });
   return Rsvp;
 };
